@@ -1,21 +1,19 @@
 # ucas-covid19
 国科大疫情防控每日填报助手，用于解决忘记填写企业微信中身体状况每日打卡的问题。
 
-
-
+**因为网站更新，增加了去往何处等选项，在仓库内代码更新前请手动打卡，以免漏报信息。 预计本周末可以修复，如果最近两天有能够修改代码解决此问题的同学，欢迎PR。** -- 2021年1月21日12:48:52
+ 
 # 注意
 本人不对因为滥用此程序造成的后果负责，**请在合理且合法的范围内使用本程序**。
 
-**本程序仅用于解决忘记打卡这一问题，如果填报表中任意情况发生变化，比如地点发生变化，请务必在程序运行之前手动打卡。**
+**本程序仅用于解决忘记打卡这一问题，如果填报表中任意情况发生变化，比如地点发生变化，处在居家隔离阶段等情况，请务必在程序运行之前手动打卡。**
 
-
-理论上来说本程序适用于**国内大多数高校**的每日打卡，只需要替换代码中的提交网址并完成其他的适配性工作即可，其他学校有需求的同学可以修改本代码，但请遵守`CC BY-NC-SA 3.0` 许可协议。
-
-
+有特殊需求的同学可以修改本代码，但请遵守`CC BY-NC-SA 3.0` 许可协议。
 
 打卡网站可能会经常更新，因此代码会做更改。如果在使用过程中遇到问题或者发现 bug，可以提 issue 或者加入 [Telegram](https://t.me/ucas_covid19) 交流，代码更新也会在此处通知。
 如果想要即时得知代码的更新请 watch 本仓库。
 
+**由于各种原因，可能造成打卡信息不一定总是准确的，请经常人工查看企业微信里面的填报表信息是否正确**
 
 # 方法一： 使用自己的服务器运行
 ## 用法
@@ -57,7 +55,14 @@ Github提供了一个secret功能，用于存储密钥等敏感信息，请按�
 - 在仓库设置里面, 设置 secrets 如下
   - `SEP_USER_NAME`: 你的 SEP 用户名(邮箱)
   - `SEP_PASSWD`: 你的 SEP 密码
-  - `API_KEY`: 你的通知[server酱](http://sc.ftqq.com/3.version)的api key，填写之后可以在程序完成打卡之后通知到微信，如果不填写不影响使用
+  - server酱通知设置（需要server酱通知时设置）：
+    - `API_KEY`: 你的通知[server酱](http://sc.ftqq.com/3.version)的api key，填写之后可以在程序完成打卡之后通知到微信，如果不填写不影响使用
+  - 邮件通知设置（需要邮件通知时设置）：
+    - `SMTP_PORT`: 邮件服务器端口，不设置即为qq邮件服务器端口：465
+    - `SMTP_SERVER`: 邮件服务器地址，不设置即为qq邮件服务器：smtp.qq.com
+    - `SENDER_EMAIL`: 发送通知打卡通知邮件的邮箱，必须设置
+    - `SENDER_EMAIL_PASSWD`: 发送通知打卡通知邮件的邮箱密码，需要开启邮箱smtp服务，此处可能不为邮箱的登录密码，如：qq邮箱为授权码，需要在设置中生成，必须设置
+    - `RECEIVER_EMAIL`: 接收打卡通知邮件的邮箱，必须设置
 - 测试actions是否可以正常工作：编辑本项目内任意文件，推荐修改`README.md`，比如添加一个空行，并提交以触发action运行，提交后的一分钟左右可以在action选项卡中看到运行记录
 
 
@@ -140,6 +145,8 @@ $ crontab -e
 - 2020年11月7日 使用环境变量传递口令，解决密码中存在特殊字符导致 sed 截断的问题
 - 2020年11月9日 bugfix: 修复环境变量传递口令中存在的 bug， 经过测试已经 work 了，面壁思过中 :( 
 - 2020年12月2日 网站证书配置有误导致打卡失败，修改代码为不验证证书
+- 2020年12月22日 添加邮件通知
+- 2021年1月21日 判断所在地点是不是国内，如果不是国内，则提示手动打卡
 
 
 # 致谢
@@ -148,6 +155,7 @@ $ crontab -e
 - 感谢 [HsimWong](https://github.com/IanSmith123/ucas-covid19/pull/3) 对文档的完善工作
 - 感谢 [spwpun](https://github.com/IanSmith123/ucas-covid19/pull/6) 添加了使用 windows 计划任务的操作步骤
 - 感谢 [PrimeMHD ](https://github.com/IanSmith123/ucas-covid19/pull/7) 添加了使用 MacOS 的 crontab 的配置步骤
+- 感谢 [T-winkle](https://github.com/IanSmith123/ucas-covid19/pull/24) 添加了邮件通知打卡结果的功能
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 未本地化版本许可协议</a>进行许可。
 

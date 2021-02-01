@@ -9,7 +9,7 @@ on:
     branches: 
       - master
   schedule:
-    - cron: '10 0 * * *'
+    - cron: '0 23 * * *'  # modify by mysticalwing, change report time from Asia/8:10 to Asia/7:00
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
